@@ -5,7 +5,12 @@ Greetings, fellow news nerds! Welcome to the NewsNerd HackerBot, your ultimate c
 
 ## Features 🚀
 
-# TODO
+Right now, NewsNerd HackerBot is able to:
+
+1. Get you the top, best, new, best, ask, show and job stories of
+   Hacker News.
+2. Gets you filter the stories by any keyword / keywords you want (e.g. `Give me 20 stories about Sam Altman and OpenAI`)
+
 
 ## Local Use
 
@@ -19,3 +24,7 @@ Greetings, fellow news nerds! Welcome to the NewsNerd HackerBot, your ultimate c
    streamlit run app.py
    ```
 
+## Next Steps
+
+- Add tools to analyse the comments of a story
+- Add tools to analyse the content of a URL (if it's a blogpost or similar)
