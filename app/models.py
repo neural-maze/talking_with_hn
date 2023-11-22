@@ -7,7 +7,8 @@ class Stories(BaseModel):
     limit: int = Field(default=10, description="The number of stories to return. Defaults to 10.")
     keywords: List[str] = Field(default=None, description="The list of keywords to filter the stories. "
                                                           "Defaults to None")
-    story_type: str = Field(default="top", description="The story type: 'top', 'new', 'best', 'ask', 'show', 'job'")
+    story_type: str = Field(default="top", description="The story type. It can be one of the following: "
+                                                       "'top', 'new', 'best', 'ask', 'show', 'job'. Defaults to 'top'")
 
 
 class Item(BaseModel):
