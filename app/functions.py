@@ -21,12 +21,13 @@ async def fetch_item(session: aiohttp.ClientSession, item_id: int):
         return await response.json()
 
 
-async def fetch_story_ids(story_type: str = "top"):
+async def fetch_story_ids(story_type: str = "top", limit: int = None):
     """
     Asynchronously fetches the top story IDs.
 
     Args:
         story_type: The story type. Defaults to top (`topstories.json`)
+        limit: The limit of stories to be fetched.
 
     Returns:
         List[int]: A list of top story IDs.
@@ -36,6 +37,10 @@ async def fetch_story_ids(story_type: str = "top"):
         async with session.get(url) as response:
             story_ids = await response.json()
 
+    if limit:
+        story_ids = story_ids[:limit]
+
+    print(story_ids)
     return story_ids
 
 
@@ -52,7 +57,11 @@ async def get_hn_stories(limit: int = 10, keywords: List[str] = None, story_type
         List[Dict[str, Union[str, int]]]: A list of dictionaries containing
         'title', 'url', and 'score' of top stories.
     """
-    story_ids = await fetch_story_ids(story_type)
+
+    if limit and keywords is None:
+        story_ids = await fetch_story_ids(story_type, limit)
+    else:
+        story_ids = await fetch_story_ids(story_type)
 
     async def fetch_and_filter_stories(story_id):
         async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
@@ -61,6 +70,7 @@ async def get_hn_stories(limit: int = 10, keywords: List[str] = None, story_type
 
     tasks = [fetch_and_filter_stories(story_id) for story_id in story_ids]
     stories = await asyncio.gather(*tasks)
+    print(stories)
 
     filtered_stories = []
     for story in stories:
@@ -73,4 +83,5 @@ async def get_hn_stories(limit: int = 10, keywords: List[str] = None, story_type
         if keywords is None or any(keyword.lower() in story['title'].lower() for keyword in keywords):
             filtered_stories.append(story_info)
 
+    print(filtered_stories)
     return filtered_stories[:limit]
