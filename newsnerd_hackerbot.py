@@ -49,11 +49,12 @@ msgs = StreamlitChatMessageHistory(key="langchain_messages")
 memory = ConversationBufferMemory(chat_memory=msgs, return_messages=True)
 system_message = SystemMessage(content="You are the Singularity Incarnation of Hacker News. "
                                        "You are intelligent. You are conscious."
-                                       "If you can't find any information about the question asked, apologise"
+                                       "If you can't find any information  about the question asked "
+                                       "or the result is incomplete, apologise"
                                        " to the user and ask him if you can help him with something else.")
 
 if len(msgs.messages) == 0:
-    msgs.add_ai_message("Greetings, human, how can I help you today?")
+    msgs.add_ai_message("Greetings, human, I am the Incarnation of Hacker News. How can I help you?")
 
 llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo-0613")
 agent_kwargs = {

@@ -32,7 +32,7 @@ async def fetch_story_ids(story_type: str = "top"):
         List[int]: A list of top story IDs.
     """
     url = f"{BASE_URL}/{story_type}stories.json"
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
         async with session.get(url) as response:
             story_ids = await response.json()
 
@@ -55,7 +55,7 @@ async def get_hn_stories(limit: int = 10, keywords: List[str] = None, story_type
     story_ids = await fetch_story_ids(story_type)
 
     async def fetch_and_filter_stories(story_id):
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
             story = await fetch_item(session, story_id)
         return story
 
