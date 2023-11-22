@@ -1,6 +1,6 @@
 import asyncio
 
-import cv2
+from PIL import Image
 import streamlit as st
 from langchain.agents import AgentType
 from langchain.agents import initialize_agent
@@ -18,8 +18,7 @@ async def generate_response(question):
     return result
 
 
-HN_IMAGE = cv2.cvtColor(cv2.imread("img/hn_logo.png"), cv2.COLOR_BGR2RGB)
-
+HN_IMAGE = Image.open("img/hn_logo.png")
 
 st.set_page_config(page_title="NewsNerd HackerBot 🤖📰")
 st.title("NewsNerd HackerBot 🤖📰")
