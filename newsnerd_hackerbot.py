@@ -56,7 +56,7 @@ system_message = SystemMessage(content="You are the Singularity Incarnation of H
 if len(msgs.messages) == 0:
     msgs.add_ai_message("Greetings, human, I am the Incarnation of Hacker News. How can I help you?")
 
-llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo-0613")
+llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo-0613", openai_api_key=openai_api_key)
 agent_kwargs = {
     "system_message": system_message,
     "extra_prompt_messages": [MessagesPlaceholder(variable_name="history")]
