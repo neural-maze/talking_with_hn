@@ -11,11 +11,11 @@ class StoriesTool(BaseTool):
     name = "get_stories"
     description = "Gets stories from Hacker News"
 
-    def _run(self, limit: int = 10, keywords: List[str] = None, story_type: str = "top"):
+    def _run(self, limit: int = 5, keywords: List[str] = None, story_type: str = "top"):
         stories = get_hn_stories(limit, keywords, story_type)
         return stories
 
-    def _arun(self, limit: int = 10, keywords: List[str] = None, story_type: str = "top"):
+    def _arun(self, limit: int = 5, keywords: List[str] = None, story_type: str = "top"):
         stories = get_hn_stories(limit, keywords, story_type)
         return stories
 

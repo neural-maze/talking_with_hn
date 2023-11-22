@@ -40,11 +40,10 @@ async def fetch_story_ids(story_type: str = "top", limit: int = None):
     if limit:
         story_ids = story_ids[:limit]
 
-    print(story_ids)
     return story_ids
 
 
-async def get_hn_stories(limit: int = 10, keywords: List[str] = None, story_type: str = "top"):
+async def get_hn_stories(limit: int = 5, keywords: List[str] = None, story_type: str = "top"):
     """
     Asynchronously fetches the top Hacker News stories based on the provided parameters.
 
@@ -70,7 +69,6 @@ async def get_hn_stories(limit: int = 10, keywords: List[str] = None, story_type
 
     tasks = [fetch_and_filter_stories(story_id) for story_id in story_ids]
     stories = await asyncio.gather(*tasks)
-    print(stories)
 
     filtered_stories = []
     for story in stories:
@@ -83,5 +81,4 @@ async def get_hn_stories(limit: int = 10, keywords: List[str] = None, story_type
         if keywords is None or any(keyword.lower() in story['title'].lower() for keyword in keywords):
             filtered_stories.append(story_info)
 
-    print(filtered_stories)
     return filtered_stories[:limit]
