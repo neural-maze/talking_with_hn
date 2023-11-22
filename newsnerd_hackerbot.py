@@ -32,6 +32,7 @@ with st.sidebar:
         openai_api_key = st.text_input('Enter your OPENAI_API_KEY: ', type='password')
         if not openai_api_key:
             st.warning('Please, enter your OPENAI_API_KEY', icon='⚠️')
+            st.stop()
         else:
             st.success('Ask Hacker News whatever you want!', icon='👉')
 
