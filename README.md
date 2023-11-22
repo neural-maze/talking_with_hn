@@ -21,7 +21,7 @@ Right now, NewsNerd HackerBot is able to:
 
 2. **Run Streamlit application:**
    ```bash
-   streamlit run app.py
+   streamlit run newsnerd_hackerbot.py
    ```
 
 ## Next Steps
