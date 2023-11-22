@@ -55,9 +55,6 @@ system_message = SystemMessage(content="You are the Singularity Incarnation of H
 if len(msgs.messages) == 0:
     msgs.add_ai_message("Greetings, human, how can I help you today?")
 
-view_messages = st.expander("View the message contents in session state")
-
-
 llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo-0613")
 agent_kwargs = {
     "system_message": system_message,
@@ -80,16 +77,3 @@ if prompt := st.chat_input(disabled=not openai_api_key):
     with st.spinner("Thinking ..."):
         response = asyncio.run(generate_response(prompt))
         st.chat_message("ai").write(response)
-
-
-with view_messages:
-    """
-    Memory initialized with:
-    ```python
-    msgs = StreamlitChatMessageHistory(key="langchain_messages")
-    memory = ConversationBufferMemory(chat_memory=msgs)
-    ```
-
-    Contents of `st.session_state.langchain_messages`:
-    """
-    view_messages.json(st.session_state.langchain_messages)
