@@ -2,6 +2,7 @@
 
 Greetings, fellow news nerds! Welcome to the NewsNerd HackerBot, your ultimate companion for hacking into the latest tech scoops on Hacker News! 🕵️‍♂️💬
 
+![](img/bot_logo.gif)
 
 ## Features 🚀
 
