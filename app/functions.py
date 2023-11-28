@@ -1,6 +1,7 @@
 import asyncio
 import aiohttp
 from typing import List, Dict, Union
+import json
 
 BASE_URL = "https://hacker-news.firebaseio.com/v0"
 
@@ -73,7 +74,7 @@ async def get_hn_stories(limit: int = 5, keywords: List[str] = None, story_type:
     filtered_stories = []
     for story in stories:
         story_info = {
-            "id": story.get("id"),
+            "story_id": story.get("id"),
             "title": story.get("title"),
             "url": story.get("url"),
             "score": story.get("score"),
@@ -85,19 +86,19 @@ async def get_hn_stories(limit: int = 5, keywords: List[str] = None, story_type:
     return filtered_stories[:limit]
 
 
-async def get_relevant_comments(item_id, limit=10):
+async def get_relevant_comments(story_id, limit=10):
     """
     Get the most relevant comments for a Hacker News item.
 
     Args:
-        item_id: The ID of the Hacker News item.
+        story_id: The ID of the Hacker News item.
         limit: The number of comments to retrieve (default is 10).
 
     Returns:
         A list of dictionaries, each containing comment details.
     """
     async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
-        story = await fetch_item(session, item_id)
+        story = await fetch_item(session, story_id)
 
         if 'kids' not in story:
             return "This item doesn't have comments."
@@ -109,4 +110,6 @@ async def get_relevant_comments(item_id, limit=10):
 
         relevant_comments = comment_details[:limit]
         relevant_comments = [comment["text"] for comment in relevant_comments]
-        return relevant_comments
+
+        print(relevant_comments)
+        return json.dumps(relevant_comments)

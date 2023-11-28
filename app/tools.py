@@ -27,12 +27,12 @@ class CommentsTool(BaseTool):
     name = "get_comments"
     description = "Gets comments from a specific Hacker News story"
 
-    def _run(self, item_id: int, limit: int = 10):
-        comments = get_relevant_comments(item_id, limit)
+    def _run(self, story_id: int, limit: int = 10):
+        comments = get_relevant_comments(story_id, limit)
         return comments
 
-    def _arun(self, item_id: int, limit: int = 10):
-        comments = get_relevant_comments(item_id, limit)
+    def _arun(self, story_id: int, limit: int = 10):
+        comments = get_relevant_comments(story_id, limit)
         return comments
 
     args_schema: Optional[Type[BaseModel]] = Comments
