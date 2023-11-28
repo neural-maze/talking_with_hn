@@ -54,7 +54,7 @@ async def get_hn_stories(limit: int = 5, keywords: List[str] = None, story_type:
 
     Returns:
         List[Dict[str, Union[str, int]]]: A list of dictionaries containing
-        'title', 'url', and 'score' of top stories.
+        'id', 'title', 'url', and 'score' of the stories.
     """
 
     if limit and keywords is None:
@@ -73,6 +73,7 @@ async def get_hn_stories(limit: int = 5, keywords: List[str] = None, story_type:
     filtered_stories = []
     for story in stories:
         story_info = {
+            "id": story.get("id"),
             "title": story.get("title"),
             "url": story.get("url"),
             "score": story.get("score"),
@@ -82,3 +83,30 @@ async def get_hn_stories(limit: int = 5, keywords: List[str] = None, story_type:
             filtered_stories.append(story_info)
 
     return filtered_stories[:limit]
+
+
+async def get_relevant_comments(item_id, limit=10):
+    """
+    Get the most relevant comments for a Hacker News item.
+
+    Args:
+        item_id: The ID of the Hacker News item.
+        limit: The number of comments to retrieve (default is 10).
+
+    Returns:
+        A list of dictionaries, each containing comment details.
+    """
+    async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
+        story = await fetch_item(session, item_id)
+
+        if 'kids' not in story:
+            return "This item doesn't have comments."
+
+        comment_ids = story['kids']
+
+        comment_details = await asyncio.gather(*[fetch_item(session, cid) for cid in comment_ids])
+        comment_details.sort(key=lambda comment: comment.get('score', 0), reverse=True)
+
+        relevant_comments = comment_details[:limit]
+        relevant_comments = [comment["text"] for comment in relevant_comments]
+        return relevant_comments

@@ -2,9 +2,10 @@ from typing import Optional, Type, List
 
 from langchain.tools import BaseTool
 from pydantic import BaseModel
-from app.models import Stories
+from app.models import Stories, Comments
 
 from app.functions import get_hn_stories
+from app.functions import get_relevant_comments
 
 
 class StoriesTool(BaseTool):
@@ -20,3 +21,18 @@ class StoriesTool(BaseTool):
         return stories
 
     args_schema: Optional[Type[BaseModel]] = Stories
+
+
+class CommentsTool(BaseTool):
+    name = "get_comments"
+    description = "Gets comments from a specific Hacker News story"
+
+    def _run(self, item_id: int, limit: int = 10):
+        comments = get_relevant_comments(item_id, limit)
+        return comments
+
+    def _arun(self, item_id: int, limit: int = 10):
+        comments = get_relevant_comments(item_id, limit)
+        return comments
+
+    args_schema: Optional[Type[BaseModel]] = Comments

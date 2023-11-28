@@ -22,6 +22,7 @@ HN_IMAGE = Image.open("img/hn_logo.png")
 
 st.set_page_config(page_title="NewsNerd HackerBot 🤖📰")
 st.title("NewsNerd HackerBot 🤖📰")
+stop = False
 
 with st.sidebar:
     st.image(HN_IMAGE)
@@ -32,7 +33,7 @@ with st.sidebar:
         openai_api_key = st.text_input('Enter your OPENAI_API_KEY: ', type='password')
         if not openai_api_key:
             st.warning('Please, enter your OPENAI_API_KEY', icon='⚠️')
-            st.stop()
+            stop = True
         else:
             st.success('Ask Hacker News whatever you want!', icon='👉')
 
@@ -43,6 +44,9 @@ with st.sidebar:
     and hacker happenings? Fear not, for your cyber-savvy companion has descended upon the scene – 
     behold the extraordinary **NewsNerd HackerBot**!
     """)
+
+if stop:
+    st.stop()
 
 tools = [StoriesTool()]
 msgs = StreamlitChatMessageHistory(key="langchain_messages")
