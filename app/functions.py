@@ -1,3 +1,4 @@
+from bs4 import BeautifulSoup
 import asyncio
 import aiohttp
 from typing import List, Dict, Union
@@ -44,6 +45,33 @@ async def fetch_story_ids(story_type: str = "top", limit: int = None):
     return story_ids
 
 
+async def fetch_text(session, url):
+    """
+    Fetches the text from a URL (if there's text to be fetched). If it fails,
+    it will return an informative message to the LLM.
+
+    Args:
+        session: `aiohttp` session
+        url: The story URL
+
+    Returns:
+        A string representing whether the story text or an informative error (represented as a string)
+    """
+    try:
+        async with session.get(url) as response:
+            if response.status == 200:
+
+                html_content = await response.text()
+                soup = BeautifulSoup(html_content, 'html.parser')
+                text_content = soup.get_text()
+
+                return text_content
+            else:
+                return f"Unable to fetch content from {url}. Status code: {response.status}"
+    except Exception as e:
+        return f"An error occurred: {e}"
+
+
 async def get_hn_stories(limit: int = 5, keywords: List[str] = None, story_type: str = "top"):
     """
     Asynchronously fetches the top Hacker News stories based on the provided parameters.
@@ -86,7 +114,7 @@ async def get_hn_stories(limit: int = 5, keywords: List[str] = None, story_type:
     return filtered_stories[:limit]
 
 
-async def get_relevant_comments(story_id, limit=10):
+async def get_relevant_comments(story_id: int, limit: int =10):
     """
     Get the most relevant comments for a Hacker News item.
 
@@ -111,5 +139,19 @@ async def get_relevant_comments(story_id, limit=10):
         relevant_comments = comment_details[:limit]
         relevant_comments = [comment["text"] for comment in relevant_comments]
 
-        print(relevant_comments)
         return json.dumps(relevant_comments)
+
+
+async def get_story_content(story_url: str):
+    """
+    Gets the content of the story using BeautifulSoup.
+
+    Args:
+        story_url: A string representing the story URL
+
+    Returns:
+        The content of the story
+    """
+    async with aiohttp.ClientSession() as session:
+        story_content = await fetch_text(session, story_url)
+        return story_content

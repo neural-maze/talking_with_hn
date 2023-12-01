@@ -3,3 +3,4 @@ openai
 langchain
 pillow
 pydantic
+beautifulsoup4
