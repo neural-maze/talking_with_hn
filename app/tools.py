@@ -6,6 +6,7 @@ from app.models import Stories, Comments
 
 from app.functions import get_hn_stories
 from app.functions import get_relevant_comments
+from app.functions import get_story_content
 
 
 class StoriesTool(BaseTool):
@@ -34,5 +35,20 @@ class CommentsTool(BaseTool):
     def _arun(self, story_id: int, limit: int = 10):
         comments = get_relevant_comments(story_id, limit)
         return comments
+
+    args_schema: Optional[Type[BaseModel]] = Comments
+
+
+class ContentTool(BaseTool):
+    name = "get_content"
+    description = "Gets the Hacker News story content from a URL"
+
+    def _run(self, story_url: str):
+        story_content = get_story_content(story_url)
+        return story_content
+
+    def _arun(self, story_url: str):
+        story_content = get_story_content(story_url)
+        return story_content
 
     args_schema: Optional[Type[BaseModel]] = Comments

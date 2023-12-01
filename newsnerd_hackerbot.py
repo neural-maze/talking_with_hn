@@ -12,6 +12,7 @@ from langchain.prompts import MessagesPlaceholder
 
 from app.tools import StoriesTool
 from app.tools import CommentsTool
+from app.tools import ContentTool
 
 
 async def generate_response(question):
@@ -49,7 +50,7 @@ with st.sidebar:
 if stop:
     st.stop()
 
-tools = [StoriesTool(), CommentsTool()]
+tools = [StoriesTool(), CommentsTool(), ContentTool()]
 msgs = StreamlitChatMessageHistory(key="langchain_messages")
 memory = ConversationBufferMemory(chat_memory=msgs, return_messages=True)
 system_message = SystemMessage(content="You are the Singularity Incarnation of Hacker News. "
