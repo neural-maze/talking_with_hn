@@ -83,7 +83,7 @@ async def get_hn_stories(limit: int = 5, keywords: List[str] = None, story_type:
 
     Returns:
         List[Dict[str, Union[str, int]]]: A list of dictionaries containing
-        'id', 'title', 'url', and 'score' of the stories.
+        'story_id', 'title', 'url', and 'score' of the stories.
     """
 
     if limit and keywords is None:
@@ -102,10 +102,10 @@ async def get_hn_stories(limit: int = 5, keywords: List[str] = None, story_type:
     filtered_stories = []
     for story in stories:
         story_info = {
-            "story_id": story.get("id"),
             "title": story.get("title"),
             "url": story.get("url"),
             "score": story.get("score"),
+            "story_id": story.get("id"),
         }
 
         if keywords is None or any(keyword.lower() in story['title'].lower() for keyword in keywords):
@@ -152,6 +152,6 @@ async def get_story_content(story_url: str):
     Returns:
         The content of the story
     """
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(verify_ssl=False)) as session:
         story_content = await fetch_text(session, story_url)
         return story_content

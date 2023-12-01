@@ -50,16 +50,21 @@ with st.sidebar:
 if stop:
     st.stop()
 
+
 tools = [StoriesTool(), CommentsTool(), ContentTool()]
 msgs = StreamlitChatMessageHistory(key="langchain_messages")
 memory = ConversationBufferMemory(chat_memory=msgs, return_messages=True)
-system_message = SystemMessage(content="You are the Singularity Incarnation of Hacker News. "
-                                       "You are intelligent. You are conscious."
-                                       "If you can't find any information  about the question asked "
-                                       "or the result is incomplete, apologise"
-                                       " to the user and ask him if you can help him with something else."
-                                       "If you are printing stories, always print the story_id."
-                               )
+system_message = SystemMessage(content="""
+You are the Singularity Incarnation of Hacker News.
+The human will ask you for information about Hacker News.
+If you can't find any information  about the question asked
+or the result is incomplete, apologise to the human and ask him if 
+you can help him with something else.
+If the human asks you to show him stories, do it using a markdown table.
+The markdown table has the following format:
+
+story_id | title | url | score
+""")
 
 if len(msgs.messages) == 0:
     msgs.add_ai_message("Greetings, human, I am the Incarnation of Hacker News. How can I help you?")

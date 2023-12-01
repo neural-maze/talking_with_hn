@@ -17,6 +17,11 @@ class Comments(BaseModel):
     limit: int = Field(default=10, description="The number of comments to return. Defaults to 10.")
 
 
+class Content(BaseModel):
+    """A model representing the content of a story fetched from the URL"""
+    story_url: str = Field(..., description="The story URL")
+
+
 class Item(BaseModel):
     """A model representing a story, comment, job, Ask HN and even a poll"""
     item_id: str = Field(..., description="The item's unique id")

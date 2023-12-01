@@ -2,7 +2,7 @@ from typing import Optional, Type, List
 
 from langchain.tools import BaseTool
 from pydantic import BaseModel
-from app.models import Stories, Comments
+from app.models import Stories, Comments, Content
 
 from app.functions import get_hn_stories
 from app.functions import get_relevant_comments
@@ -11,7 +11,8 @@ from app.functions import get_story_content
 
 class StoriesTool(BaseTool):
     name = "get_stories"
-    description = "Gets stories from Hacker News"
+    description = "Gets stories from Hacker News. The stories are described by a 'story_id', a 'title', a 'url' and" \
+                  " a 'score'."
 
     def _run(self, limit: int = 5, keywords: List[str] = None, story_type: str = "top"):
         stories = get_hn_stories(limit, keywords, story_type)
@@ -51,4 +52,4 @@ class ContentTool(BaseTool):
         story_content = get_story_content(story_url)
         return story_content
 
-    args_schema: Optional[Type[BaseModel]] = Comments
+    args_schema: Optional[Type[BaseModel]] = Content
