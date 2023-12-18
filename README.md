@@ -10,8 +10,25 @@ Right now, NewsNerd HackerBot is able to:
 
 1. Get you the top, best, new, best, ask, show and job stories of
    Hacker News.
-2. Gets you filter the stories by any keyword / keywords you want (e.g. `Give me 20 stories about Sam Altman and OpenAI`)
+2. Filter the stories by any keyword / keywords you want (e.g. `Give me 20 stories about Sam Altman and OpenAI`)
+3. Extract the comments from a story. You can use this to evaluate the general sentiment of the story.
+4. Read blogs/articles linked to a story in order to reason about them
 
+If you want to see them in action, check the examples down below!! 👇
+
+## Examples 
+
+#### 🔵 Get top stories about Q* 
+
+![](img/q*_gif.gif))
+
+#### 🔵 Sentiment analysis on comments
+
+![](img/comment_sentiment_analysis_long.gif)
+
+#### 🔵 Reading linked article
+
+![](img/content_read_gif.gif)
 
 ## Local Use
 
@@ -24,8 +41,3 @@ Right now, NewsNerd HackerBot is able to:
    ```bash
    streamlit run newsnerd_hackerbot.py
    ```
-
-## Next Steps
-
-- Add tools to analyse the comments of a story
-- Add tools to analyse the content of a URL (if it's a blogpost or similar)
