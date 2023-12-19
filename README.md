@@ -15,8 +15,9 @@ Right now, NewsNerd HackerBot is able to:
 3. Extract the comments from a story. You can use this to evaluate the general sentiment of the story.
 4. Read blogs/articles linked to a story in order to reason about them.
 
-If you want to see them in action, check the examples down below!! 👇
+If you want to see them in action, check the examples down below! 👇👇👇
 
+---
 
 <p align="center">
   <img src="img/q*_gif.gif" alt="Top Stories about Q*" width="400"/>
@@ -24,6 +25,7 @@ If you want to see them in action, check the examples down below!! 👇
   <sub>Fetching top stories related to a topic</sub>
 </p>
 
+---
 
 <p align="center">
   <img src="img/comment_sentiment_analysis_long.gif" alt="Sentiment Analysis on Comments" width="400"/>
@@ -31,13 +33,20 @@ If you want to see them in action, check the examples down below!! 👇
   <sub>Conducting sentiment analysis on comments</sub>
 </p>
 
+--- 
+
 <p align="center">
   <img src="img/content_read_gif.gif" alt="Reading Linked Article" width="400"/>
   <br>
   <sub>Reading the linked article for additional insights</sub>
 </p>
 
+---
+
 ## Local Use
+
+The application is available in Streamlit Cloud (https://newsnerdhackerbot.streamlit.app/),
+but if you want to run it locally, just follow these steps 😊
 
 1. **Install dependencies:**
    ```bash
