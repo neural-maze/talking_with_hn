@@ -20,7 +20,7 @@ If you want to see them in action, check the examples down below! 👇👇👇
 ---
 
 <p align="center">
-  <img src="img/q*_gif.gif" alt="Top Stories about Q*" width="400"/>
+  <img src="img/q*_gif.gif" alt="Top Stories about Q*" width="500"/>
   <br>
   <sub>Fetching top stories related to a topic</sub>
 </p>
@@ -28,7 +28,7 @@ If you want to see them in action, check the examples down below! 👇👇👇
 ---
 
 <p align="center">
-  <img src="img/comment_sentiment_analysis_long.gif" alt="Sentiment Analysis on Comments" width="400"/>
+  <img src="img/comment_sentiment_analysis_long.gif" alt="Sentiment Analysis on Comments" width="500"/>
   <br>
   <sub>Conducting sentiment analysis on comments</sub>
 </p>
@@ -36,7 +36,7 @@ If you want to see them in action, check the examples down below! 👇👇👇
 --- 
 
 <p align="center">
-  <img src="img/content_read_gif.gif" alt="Reading Linked Article" width="400"/>
+  <img src="img/content_read_gif.gif" alt="Reading Linked Article" width="500"/>
   <br>
   <sub>Reading the linked article for additional insights</sub>
 </p>
